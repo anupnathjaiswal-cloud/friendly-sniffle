@@ -10,6 +10,13 @@ import {
 } from "lucide-react";
 
 import { ModeToggle } from "@/components/ui/mode-toggle";
+import {
+    ClerkProvider,
+    Show,
+    SignInButton,
+    SignUpButton,
+    UserButton,
+} from "@clerk/nextjs";
 
 const features = [
     {
@@ -70,8 +77,105 @@ export default function Home() {
                     </span>
                 </Link>
 
-                <div className="flex items-center gap-3">
-                    <ModeToggle />
+                <div className="flex items-center gap-2 sm:gap-3">
+                    {/* Theme Toggle */}
+                    <div
+                        className="
+            rounded-full border border-zinc-200/80
+            bg-white/60 p-1 shadow-sm backdrop-blur-md
+            dark:border-white/10 dark:bg-white/[0.04]
+        "
+                    >
+                        <ModeToggle />
+                    </div>
+
+                    {/* Authentication */}
+                    <Show when="signed-out">
+                        <SignInButton>
+                            <button
+                                className="
+                    hidden h-10 items-center justify-center
+                    rounded-full border border-zinc-200
+                    bg-white/60 px-4 text-sm font-medium
+                    text-zinc-700 backdrop-blur-md
+                    transition-all duration-200
+                    hover:-translate-y-0.5
+                    hover:bg-white hover:shadow-md
+                    sm:inline-flex
+                    dark:border-white/10
+                    dark:bg-white/[0.04]
+                    dark:text-zinc-200
+                    dark:hover:bg-white/[0.08]
+                "
+                            >
+                                Sign In
+                            </button>
+                        </SignInButton>
+
+                        <SignUpButton>
+                            <button
+                                className="
+                    group relative inline-flex h-10
+                    items-center justify-center
+                    overflow-hidden rounded-full
+                    bg-gradient-to-r
+                    from-violet-600 via-purple-600 to-blue-600
+                    px-4 text-sm font-semibold text-white
+                    shadow-lg shadow-violet-500/20
+                    transition-all duration-200
+                    hover:-translate-y-0.5
+                    hover:shadow-xl
+                    hover:shadow-violet-500/30
+                    sm:h-11 sm:px-5
+                "
+                            >
+                                <span className="relative z-10 flex items-center gap-1.5">
+                                    Get Started
+                                    <ArrowRight
+                                        className="
+                            h-4 w-4
+                            transition-transform duration-200
+                            group-hover:translate-x-1
+                        "
+                                    />
+                                </span>
+
+                                {/* Shine effect */}
+                                <span
+                                    className="
+                        absolute inset-0
+                        -translate-x-full
+                        bg-gradient-to-r
+                        from-transparent
+                        via-white/20
+                        to-transparent
+                        transition-transform duration-500
+                        group-hover:translate-x-full
+                    "
+                                />
+                            </button>
+                        </SignUpButton>
+                    </Show>
+
+                    {/* User */}
+                    <Show when="signed-in">
+                        <div
+                            className="
+                rounded-full border border-zinc-200/80
+                bg-white/60 p-1 shadow-sm backdrop-blur-md
+                dark:border-white/10
+                dark:bg-white/[0.04]
+            "
+                        >
+                            <UserButton
+                                appearance={{
+                                    elements: {
+                                        avatarBox: "h-9 w-9 sm:h-10 sm:w-10",
+                                    },
+                                }}
+                            />
+                        </div>
+                    </Show>
                 </div>
             </header>
 
